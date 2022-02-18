@@ -11,9 +11,10 @@ def main():
         print("[x] Received %r" % body.decode())
         time.sleep(body.count(b'.'))
         print(" [x] Done")
+        ch.basic_ack(delivery_tag= method.deliver_tag)
 
     # tell pika that callback method should consume messages from rabbit mq
-    channel.basic_consume(queue='hello', auto_ack=True, on_message_callback=callback)
+    channel.basic_consume(queue='hello', on_message_callback=callback)
 
     print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
