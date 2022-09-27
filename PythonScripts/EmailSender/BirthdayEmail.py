@@ -8,7 +8,7 @@ today = dt.datetime.now()
 today_tuple = (today.month, today.day)
 
 MY_EMAIL = "acamit84@gmail.com"
-MY_PASSWORD = "fclskebcykqhuuce"
+MY_PASSWORD = ""
 
 data = pd.read_csv('birthdays.csv')
 

@@ -3,7 +3,7 @@ import smtplib
 my_email = 'acamit84@gmail.com'
 
 connection = smtplib.SMTP("smtp.gmail.com", port=587)
-password = 'fclskebcykqhuuce'
+password = ''
 # secure and encrypt the message
 connection.starttls()
 connection.login(user=my_email, password=password)
