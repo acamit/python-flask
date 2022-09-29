@@ -3,7 +3,7 @@ import random
 import smtplib
 
 MY_EMAIL = "acamit84@gmail.com"
-MY_PASSWORD = ""
+MY_PASSWORD = "fclskebcykqhuuce"
 
 now = dt.datetime.now()
 weekday = now.weekday()
