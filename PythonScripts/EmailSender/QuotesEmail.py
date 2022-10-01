@@ -21,3 +21,15 @@ if weekday == 0:
             from_addr=MY_EMAIL,
             to_addrs=MY_EMAIL,
             msg=f"Subject:Monday Motivation \n\n {quote}")
+
+
+
+#
+# # get quote from api
+# response = requests.get("https://api.kanye.rest/")
+# print(response.json())
+#
+# quote = response.json()["quote"]
+# print(quote)
+
+

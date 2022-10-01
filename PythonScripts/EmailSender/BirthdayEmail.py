@@ -8,7 +8,7 @@ today = dt.datetime.now()
 today_tuple = (today.month, today.day)
 
 MY_EMAIL = "acamit84@gmail.com"
-MY_PASSWORD = "radha@Soami1"
+MY_PASSWORD = "fclskebcykqhuuce"
 
 data = pd.read_csv('birthdays.csv')
 
@@ -31,8 +31,8 @@ if today_tuple in birthday_dict:
         contents = letter_file.read()
         contents = contents.replace('[NAME]', birthday_person["name"])
 
-    with smtplib.SMTP("smtp.gmail.com") as connection:
-    # with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+    # with smtplib.SMTP("smtp.gmail.com") as connection:
+    with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         connection.starttls()
         connection.login(MY_EMAIL, MY_PASSWORD)
         connection.sendmail(
