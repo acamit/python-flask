@@ -1,0 +1,6 @@
+MY_EMAIL = "acamit84@gmail.com"
+MY_PASSWORD = "fclskebcykqhuuce"
+
+TWILIO_ACCOUNT_SID = "AC52eb1f88b3efa2e3bea1bef45afe85f7"
+TWILIO_AUTH_TOKEN = "ebca8f37eb881f203e41ad8c8e51a971"
+TWILIO_TEMP_NUMBER = "+13023065086"

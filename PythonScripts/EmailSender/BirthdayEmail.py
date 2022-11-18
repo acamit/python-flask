@@ -10,7 +10,7 @@ today_tuple = (today.month, today.day)
 MY_EMAIL = "acamit84@gmail.com"
 MY_PASSWORD = "fclskebcykqhuuce"
 
-data = pd.read_csv('birthdays.csv')
+data = pd.read_csv('../Workshop Demo/birthdays.csv')
 
 # birthday_dict = {
 #     (birthday_month, birthday_day): data_row

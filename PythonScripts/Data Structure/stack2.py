@@ -19,3 +19,6 @@ print(stack.get())
 print(stack.get())
 
 print(f'is empty {stack.empty()}')
+
+
+
