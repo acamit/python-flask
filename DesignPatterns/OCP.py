@@ -23,11 +23,11 @@ class Product:
 """
 
 OCP = open for extension, closed for modification. 
-    After you test a class, do not modify, only entend it
+    After you test a class, do not modify, only extend it
 
 """
 
-
+# basic approach, violates opne closed principle.
 class ProductFilter:
     @staticmethod
     def filter_by_color(products, color):
@@ -54,7 +54,10 @@ class Specification:
     # abstract method
     def is_satisfied(self, item):
         pass
-
+    
+   # Overloading the & operator for creating a short cut for AndSpecification below.
+    def __and__(self, other):
+        return AndSpecification(self, other)
 
 """
     in c# filter class could be made generic instead of inherited
@@ -72,10 +75,6 @@ class Filter:
 class ColorSpecification(Specification):
     def __init__(self, color):
         self.color = color
-
-    # Overloading the & operator for creating a short cut for AndSpecification below.
-    def __and__(self, other):
-        return AndSpecification(self, other)
 
     def is_satisfied(self, item):
         return item.color == self.color
@@ -106,29 +105,29 @@ class BetterFilter(Filter):
             if spec.is_satisfied(item):
                 yield item
 
+#
+# if __name__ == '__main__':
+apple = Product('Apple', Color.GREEN, Size.SMALL)
+tree = Product('Tree', Color.GREEN, Size.LARGE)
+house = Product('House', Color.BLUE, Size.LARGE)
 
-if __name__ == '__main__':
-    apple = Product('Apple', Color.GREEN, Size.SMALL)
-    tree = Product('Tree', Color.GREEN, Size.LARGE)
-    house = Product('House', Color.BLUE, Size.LARGE)
+products = [apple, tree, house]
 
-    products = [apple, tree, house]
+bf = BetterFilter()
 
-    bf = BetterFilter()
+print('Green Products')
+green = ColorSpecification(Color.GREEN)
+greenProducts = bf.filter(products, green)
 
-    print('Green Products')
-    green = ColorSpecification(Color.GREEN)
-    greenProducts = bf.filter(products, green)
+print('Large products')
+large = SizeSpecification(Size.LARGE)
+largeProducts = bf.filter(products, large)
 
-    print('Large products')
-    large = SizeSpecification(Size.LARGE)
-    largeProducts = bf.filter(products, large)
+print('Large Blue Items')
+# basic approach
+large_blue = AndSpecification(large, ColorSpecification(Color.BLUE))
+large_blue_products = bf.filter(products, large_blue)
 
-    print('Large Blue Items')
-    # basic approach
-    large_blue = AndSpecification(large, ColorSpecification(Color.BLUE))
-    large_blue_products = bf.filter(products, large_blue)
-
-    # via the overload
-    large_blue_new = large & ColorSpecification(Color.BLUE)
-    large_blue_products_new = bf.filter(products, large_blue_new)
+# via the overload
+large_blue_new = large & ColorSpecification(Color.BLUE)
+large_blue_products_new = bf.filter(products, large_blue_new)
