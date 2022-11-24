@@ -38,8 +38,8 @@ class ProductFilter:
         """
         Now if there is additional requirement of adding a more filter like size
         or a combination like size and color etc. 
-        2^n combinations for n features.  
-        
+        2^n combinations for n features.
+                
         We can't keep adding to the same class. 
         """
 
@@ -67,6 +67,7 @@ class Specification:
 
 class Filter:
     # abstract method
+    @abstractmethod
     def filter(self, items, spec):
         pass
 

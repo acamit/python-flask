@@ -1,7 +1,7 @@
 from  enum import Enum
 """
     High level modules should not directly depend on low level modules,
-    instead they should depend on abstractoins.
+    instead they should depend on abstractions.
 """
 
 class RelationShip(Enum):
@@ -15,8 +15,7 @@ class Person:
         self.name = name
 
 """
-    This interface is being created for fixing the DIP problem defined below. 
-    
+    This interface is being created for fixing the DIP problem defined below.
 """
 class RelationshipBrowser:
     @abstractmethod
@@ -40,7 +39,7 @@ class RelationShips(RelationshipBrowser): # now this class is changed to inherit
             if r[0].name == name and r[1] == RelationShip.PARENT:
                 yield r[2].name
 
-class Research:
+class Research: # high livel module
 
     """
      Problem - Dependency Inversion principle violated
