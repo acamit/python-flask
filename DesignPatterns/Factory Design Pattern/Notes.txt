@@ -1,0 +1,24 @@
+Motivation :
+
+Object creation logic becomes too convoluted.
+
+Initializer is not descriptive
+    - Name is always __init__
+    - Cannot overload with same sets of arguments with different names.
+    - Can turn into optional parameter hell.
+Factory is responsible solely for whole sale (not piecewise) creation of objects.
+
+Builder is more like piecewise creation.
+
+
+Approach 1 - Factory methods inside the same class.
+-   We create little static methods inside the class itself to help in customization of Object creation.
+-  like new_cartesian_point, new_polar_point in the NewPoint class.
+
+Approach 2 - Factory classes
+    If the number of factory methods are too many, create a class and move the methods
+    into that class. That becomes the factory class and now you
+
+
+Factory: Consider a restaurant. The creation of "today's meal" is a factory pattern, because you tell the kitchen "get me today's meal" and the kitchen (factory) decides what object to generate, based on hidden criteria.
+Builder: The builder appears if you order a custom pizza. In this case, the waiter tells the chef (builder) "I need a pizza; add cheese, onions and bacon to it!" Thus, the builder exposes the attributes the generated object should have, but hides how to set them.
