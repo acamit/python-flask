@@ -1,0 +1,10 @@
+Complicated objects are not redisgned from scratch. They re-iterate existing objects.
+
+An exisiting design is a prototype.
+
+A prototype is a fully or partially initialized object that you clone and then subsequently utilize the cloned object.
+
+We make copy of the prototype and customize it. Requires a deep copy.
+
+To make cloning convenient we make a factory.
+
