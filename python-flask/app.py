@@ -1,68 +1,79 @@
-from flask import Flask, jsonify, request
+from flask import Flask, url_for, request, abort, redirect, session
+from markupsafe import escape
 
 app = Flask(__name__)
 
-stores = [
-    {
-        'name': 'My Store',
-        'items': [
-            {
-                'name': 'Item 1',
-                'price':  50
-            }
-        ]
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
 
-    }
-]
+@app.route("/<name>")
+def hello(name):
+    return f"Hello {escape(name)}"
 
+@app.route('/path/<path:subpath>')
+def show_subpath(subpath):
+    # show the subpath after /path/
+    return f'Subpath {escape(subpath)}'
+
+
+@app.route('/projects/')
+def projects():
+    return 'The project page'
+
+@app.route('/about')
+def about():
+    return 'The about page'
 
 @app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+def index():
+    return 'index'
+
+@app.route('/login')
+def login():
+    return 'login'
+
+@app.route('/user/<username>')
+def profile(username):
+    return f'{username}\'s profile'
+
+with app.test_request_context():
+    print(url_for('index'))
+    print(url_for('login'))
+    print(url_for('login', next='/'))
+    print(url_for('profile', username='John Doe'))
 
 
-@app.route('/store', methods=['POST'])
-def create_store():
-    request_data = request.get_json()
-    new_store = {
-        'name': request_data['name'],
-        'items': []
-    }
-    stores.append(new_store)
-    return jsonify(new_store)
+url_for('static', filename='style.css')
 
 
-@app.route('/store/<string:name>')
-def get_store(name):
-    for store in stores:
-        if store['name'] == name:
-            return jsonify(store)
-    return jsonify({'message': 'store not found'})
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if valid_login(request.form['username'],
+                       request.form['password']):
+            return log_the_user_in(request.form['username'])
+        else:
+            error = 'Invalid username/password'
+    searchword = request.args.get('key', '')
+
+    file = request.files['the_file']
+    file.save(f"/var/www/uploads/{secure_filename(file.filename)}")
+
+    username = request.cookies.get('username')
+
+    
+    # the code below is executed if the request method
+    # was GET or the credentials were invalid
+    return render_template('login.html', error=error)
 
 
-@app.route('/store')
-def get_stores():
-    return jsonify(stores)
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('page_not_found.html'), 404
 
 
-@app.route('/store/<string:name>/item', methods=['POST'])
-def create_item_in_store(name):
-    for store in stores:
-        if store['name'] == name:
-            request_data = request.get_json()
-            new_item = {'name': request_data['name'], 'price': request_data['price']}
-            store['items'].append(new_item)
-            return jsonify(new_item)
-    return jsonify({'message': 'store not found'})
-
-
-@app.route('/store/<string:name>/item')
-def get_item_in_store(name):
-    for store in stores:
-        if store['name'] == name:
-            return jsonify({'items': store['items']})
-    return jsonify({'message': 'store not found'})
-
-
-if __name__ == '__main__':
-    app.run()
+app.logger.debug('A value for debugging')
+app.logger.warning('A warning occurred (%d apples)', 42)
+app.logger.error('An error occurred')
