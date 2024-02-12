@@ -38,4 +38,18 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
+
+    @app.errorhandler(werkzeug.exceptions.BadRequest)
+    def handle_bad_request(e):
+        return 'badrequest', 400
+
+    app.register_error_handler(400, handle_bad_request)
+
+    class InsufficientStorage(werkzeug.exceptions.HTTPException):
+        code = 507
+        description = 'Not Enough Storage'
+
+    
+    app.register_error_handler(InsufficientStorage, 507)
+
     return app
