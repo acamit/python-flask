@@ -1,6 +1,8 @@
 import os
 from flask import Flask
+import werkzeug
 
+from flaskr.customcache import cache
 # application factory
 
 def create_app(test_config=None):
@@ -52,4 +54,6 @@ def create_app(test_config=None):
     
     app.register_error_handler(InsufficientStorage, 507)
 
+    cache.init_app(app)
+   
     return app
